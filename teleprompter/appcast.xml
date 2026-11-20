@@ -9,7 +9,7 @@
             <sparkle:shortVersionString>2.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
             <sparkle:releaseNotesLink>https://apps.desiree.at/teleprompter/Teleprompter-2.2.html</sparkle:releaseNotesLink>
-            <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter-2.2.zip" length="2063834" type="application/octet-stream" sparkle:edSignature="5EiMdHNPaVoaZJ4O0deEjAjW/HKWexkXujaJdP9wdbr4E+g/yDTvB9e/WbyByPmnk+0oZAMCehQDdmIUbP57Dw=="/>
+            <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter-2.2.zip" length="2063822" type="application/octet-stream" sparkle:edSignature="8YVo9nquZdO78Zih6o0flEO5qjqXhAo0o2Ezrse9fY+5+PhCu2nfG4yld9B8FqOR3yFR5WnvqBWXM7WLV517Dw=="/>
             <sparkle:deltas>
                 <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter2.2-2.1.delta" sparkle:deltaFrom="2.1" length="542398" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="976432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="WU/7rXGGZX2+xyw1mtsDXvr7RqJauXEbp43A+ytpr4fOFnxru2zEomDOKcxndvTosFRKDjQkGxdtzXpfjP+XBQ=="/>
             </sparkle:deltas>
