@@ -3,6 +3,18 @@
     <channel>
         <title>Teleprompter</title>
         <item>
+            <title>2.2</title>
+            <pubDate>Fri, 20 Nov 2026 23:57:59 +0100</pubDate>
+            <sparkle:version>2.2</sparkle:version>
+            <sparkle:shortVersionString>2.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://apps.desiree.at/teleprompter/Teleprompter-2.2.html</sparkle:releaseNotesLink>
+            <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter-2.2.zip" length="2063834" type="application/octet-stream" sparkle:edSignature="5EiMdHNPaVoaZJ4O0deEjAjW/HKWexkXujaJdP9wdbr4E+g/yDTvB9e/WbyByPmnk+0oZAMCehQDdmIUbP57Dw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter2.2-2.1.delta" sparkle:deltaFrom="2.1" length="542398" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="976432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="WU/7rXGGZX2+xyw1mtsDXvr7RqJauXEbp43A+ytpr4fOFnxru2zEomDOKcxndvTosFRKDjQkGxdtzXpfjP+XBQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>2.1</title>
             <pubDate>Fri, 20 Nov 2026 21:55:00 +0100</pubDate>
             <sparkle:version>2.1</sparkle:version>
