@@ -25,20 +25,30 @@
   .btn:hover{opacity:.88}
   .small{color:var(--dim);font-size:13px}
   footer{color:var(--dim);font-size:12px}
+  .by{color:var(--dim);font-size:13px}
+  .by a{color:var(--text);text-decoration:none;font-weight:600}
+  .by a:hover{text-decoration:underline}
+  .priv{grid-column:1 / -1;margin:10px 0 0;font-size:13px;color:var(--dim)}
+  .news{grid-column:1 / -1;margin-top:20px;padding-top:16px;border-top:.5px solid var(--line);font-size:14px;display:none}
+  .news h3{margin:0 0 6px;font-size:13px;font-weight:650}
+  .news ul{margin:0;padding-left:18px;color:var(--dim)}
   footer a{color:inherit}
 </style>
 </head>
 <body>
 <main>
+  <div class="by" style="margin:0 0 14px 4px">Von Désirée · <a href="https://desiree.at">desiree.at</a></div>
   <section class="app">
     <img src="teleprompter/icon.png" alt="">
     <h1>Teleprompter</h1>
     <div class="meta" id="tp-meta">Für macOS</div>
     <p>Schwebender Teleprompter direkt unter der Kamera. Text folgt deiner Stimme oder scrollt in deinem Tempo – und bleibt in Bildschirmaufnahmen unsichtbar.</p>
+    <div class="priv">Kein Konto, keine Werbung, kein Tracking in der App. Die Spracherkennung läuft direkt auf deinem Mac, sofern macOS die Sprache offline unterstützt.</div>
     <div class="dl">
       <a class="btn" id="tp-dl" href="teleprompter/">Laden</a>
       <span class="small">macOS 12 oder neuer · Apple-Chip und Intel</span>
     </div>
+    <div class="news" id="tp-news"></div>
   </section>
 </main>
 <footer><a href="https://desiree.at/impressum/">Impressum</a> · <a href="https://desiree.at/datenschutz/">Datenschutz</a></footer>
@@ -50,6 +60,13 @@ fetch("teleprompter/appcast.xml").then(r => r.text()).then(t => {
   const enc = item.querySelector("enclosure");
   const v = item.getElementsByTagName("sparkle:shortVersionString")[0] || item.querySelector("title");
   if (enc) document.getElementById("tp-dl").href = enc.getAttribute("url");
+  const notes = item.getElementsByTagName("sparkle:releaseNotesLink")[0];
+  if (notes) fetch(notes.textContent.replace(/^https?:\/\/[^/]+\//, "/")).then(r => r.ok ? r.text() : "").then(h => {
+    const d = new DOMParser().parseFromString(h, "text/html"); const ul = d.querySelector("ul"); if (!ul) return;
+    const box = document.getElementById("tp-news"); const t = d.querySelector("h1,h2,h3");
+    box.innerHTML = "<h3></h3>"; box.querySelector("h3").textContent = t ? t.textContent : "Was ist neu";
+    box.appendChild(document.importNode(ul, true)); box.style.display = "block";
+  }).catch(() => {});
   if (v) { document.getElementById("tp-meta").textContent = "Version " + v.textContent + " · für macOS"; document.getElementById("tp-dl").dataset.version = v.textContent; }
 }).catch(() => {});
 
