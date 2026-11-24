@@ -3,6 +3,19 @@
     <channel>
         <title>Teleprompter</title>
         <item>
+            <title>2.3</title>
+            <pubDate>Tue, 24 Nov 2026 23:53:48 +0100</pubDate>
+            <sparkle:version>2.3</sparkle:version>
+            <sparkle:shortVersionString>2.3</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <sparkle:releaseNotesLink>https://apps.desiree.at/teleprompter/Teleprompter-2.3.html</sparkle:releaseNotesLink>
+            <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter-2.3.zip" length="2063842" type="application/octet-stream" sparkle:edSignature="83OqvjEK/g2H8SfbHc5RWQ0RZX1l9MiuVKu2I9V9XZsAZCFwa6tr1lUR0l9xoFfKoJvSQyx4VQBf1O2w5q4lDQ=="/>
+            <sparkle:deltas>
+                <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter2.3-2.2.delta" sparkle:deltaFrom="2.2" length="12950" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="976432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="MY6cl6B1pG4J5xSFwTszJjz3ZRUTGLAWHu0Ar4b1yM5H2nTva9G5J0VMmnZ+IvA+nYVvJ45bvLvDth08n1BHCg=="/>
+                <enclosure url="https://apps.desiree.at/teleprompter/Teleprompter2.3-2.1.delta" sparkle:deltaFrom="2.1" length="542618" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="976432" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,uk" sparkle:edSignature="vCrp+Vg9L4+5LWTXkf88MbzkP6P+GpaB6zRcEe0IkoGIZ7d3xJ4UDYJyuM2Rh1U9SDZiQBL8jqM8SUINaTZWBw=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>2.2</title>
             <pubDate>Fri, 20 Nov 2026 23:57:59 +0100</pubDate>
             <sparkle:version>2.2</sparkle:version>
