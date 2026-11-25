@@ -33,26 +33,54 @@
   .news h3{margin:0 0 6px;font-size:13px;font-weight:650}
   .news ul{margin:0;padding-left:18px;color:var(--dim)}
   footer a{color:inherit}
+  footer button{font:inherit;color:inherit;background:none;border:0;padding:8px 0;text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
 <main>
-  <div class="by" style="margin:0 0 14px 4px">Von Désirée · <a href="https://desiree.at">desiree.at</a></div>
+  <div class="by" style="margin:0 0 14px 4px"><span data-en="By">Von</span> Désirée · <a href="https://desiree.at">desiree.at</a></div>
   <section class="app">
     <img src="teleprompter/icon.png" alt="">
     <h1>Teleprompter</h1>
-    <div class="meta" id="tp-meta">Für macOS</div>
-    <p>Schwebender Teleprompter direkt unter der Kamera. Text folgt deiner Stimme oder scrollt in deinem Tempo – und bleibt in Bildschirmaufnahmen unsichtbar.</p>
-    <div class="priv">Kein Konto, keine Werbung, kein Tracking in der App. Die Spracherkennung läuft direkt auf deinem Mac, sofern macOS die Sprache offline unterstützt.</div>
+    <div class="meta" id="tp-meta" data-en="For macOS">Für macOS</div>
+    <p data-en="A floating teleprompter right below your camera. The text follows your voice or scrolls at your pace – and stays invisible in screen recordings.">Schwebender Teleprompter direkt unter der Kamera. Text folgt deiner Stimme oder scrollt in deinem Tempo – und bleibt in Bildschirmaufnahmen unsichtbar.</p>
+    <div class="priv" data-en="No account, no ads, no tracking in the app. Speech recognition runs directly on your Mac if macOS supports the language offline.">Kein Konto, keine Werbung, kein Tracking in der App. Die Spracherkennung läuft direkt auf deinem Mac, sofern macOS die Sprache offline unterstützt.</div>
     <div class="dl">
-      <a class="btn" id="tp-dl" href="teleprompter/">Laden</a>
-      <span class="small">macOS 12 oder neuer · Apple-Chip und Intel</span>
+      <a class="btn" id="tp-dl" href="teleprompter/" data-en="Download">Laden</a>
+      <span class="small" data-en="macOS 12 or later · Apple chip and Intel">macOS 12 oder neuer · Apple-Chip und Intel</span>
     </div>
     <div class="news" id="tp-news"></div>
   </section>
 </main>
-<footer><a href="https://desiree.at/impressum/">Impressum</a> · <a href="https://desiree.at/datenschutz/">Datenschutz</a></footer>
+<footer><a href="https://desiree.at/impressum/" hreflang="de" data-en="Legal notice (German)">Impressum</a> · <a href="https://desiree.at/datenschutz/" hreflang="de" data-en="Privacy (German)">Datenschutz</a> · <button id="lang" type="button" lang="en" hidden>English</button></footer>
 <script>
+// Sprache: eigene Wahl, sonst ?lang=en/de, sonst Browser (Deutsch oder Englisch). Ohne JavaScript bleibt Deutsch.
+const texts = [...document.querySelectorAll("[data-en]")].map(el => ({el, de: el.textContent, en: el.dataset.en}));
+let lang = "", version = "", notesDoc = null;
+try { lang = localStorage.getItem("lang") || ""; } catch (e) {}
+const wish = new URLSearchParams(location.search).get("lang");
+if (wish === "de" || wish === "en") lang = wish;
+if (lang !== "de" && lang !== "en") lang = /^de\b/i.test(navigator.language || "") ? "de" : "en";
+function showLang() {
+  const en = lang === "en";
+  document.documentElement.lang = lang;
+  texts.forEach(t => { t.el.textContent = en ? t.en : t.de; });
+  if (version) document.getElementById("tp-meta").textContent = "Version " + version + (en ? " · for macOS" : " · für macOS");
+  const b = document.getElementById("lang"); b.hidden = false; b.textContent = en ? "Deutsch" : "English"; b.lang = en ? "de" : "en";
+  // Versionshinweise: Deutsch zuerst, Englisch mit lang="en" (fehlt es, wird nichts gezeigt)
+  const box = document.getElementById("tp-news"), ul = notesDoc && notesDoc.querySelector(en ? 'ul[lang="en"]' : 'ul:not([lang="en"])');
+  box.textContent = ""; box.style.display = ul ? "block" : "none"; if (!ul) return;
+  const t = notesDoc.querySelector(en ? 'h3[lang="en"]' : 'h3:not([lang="en"])'), h = document.createElement("h3");
+  h.textContent = t ? t.textContent : en ? "What’s new" : "Was ist neu";
+  box.append(h, document.importNode(ul, true));
+}
+document.getElementById("lang").addEventListener("click", () => {
+  lang = lang === "en" ? "de" : "en";
+  try { localStorage.setItem("lang", lang); } catch (e) {}
+  showLang();
+});
+showLang();
+
 // Neueste Version aus der Update-Liste lesen, damit diese Seite nie veraltet
 fetch("teleprompter/appcast.xml").then(r => r.text()).then(t => {
   const x = new DOMParser().parseFromString(t, "application/xml");
@@ -62,12 +90,9 @@ fetch("teleprompter/appcast.xml").then(r => r.text()).then(t => {
   if (enc) document.getElementById("tp-dl").href = enc.getAttribute("url");
   const notes = item.getElementsByTagName("sparkle:releaseNotesLink")[0];
   if (notes) fetch(notes.textContent.replace(/^https?:\/\/[^/]+\//, "/")).then(r => r.ok ? r.text() : "").then(h => {
-    const d = new DOMParser().parseFromString(h, "text/html"); const ul = d.querySelector("ul"); if (!ul) return;
-    const box = document.getElementById("tp-news"); const t = d.querySelector("h1,h2,h3");
-    box.innerHTML = "<h3></h3>"; box.querySelector("h3").textContent = t ? t.textContent : "Was ist neu";
-    box.appendChild(document.importNode(ul, true)); box.style.display = "block";
+    notesDoc = new DOMParser().parseFromString(h, "text/html"); showLang();
   }).catch(() => {});
-  if (v) { document.getElementById("tp-meta").textContent = "Version " + v.textContent + " · für macOS"; document.getElementById("tp-dl").dataset.version = v.textContent; }
+  if (v) { version = v.textContent; showLang(); document.getElementById("tp-dl").dataset.version = v.textContent; }
 }).catch(() => {});
 
 // Downloads zählen (GoatCounter, ohne Cookies): jeder Klick auf „Laden“ als eigenes Ereignis mit Version
